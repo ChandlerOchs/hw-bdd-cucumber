@@ -252,3 +252,32 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+
+###Mine
+Then /I should (not )?see the following:(.*)/ do |should_not, movies|
+  puts "LOOOK"
+  movies = movies[2..-2]
+  puts movies
+  movies = movies.split("\", \"")
+  puts movies
+  if should_not
+    movies.each do |title|
+      # title = title.gsub("\"", "")
+        if page.respond_to? :should
+          page.should have_no_content(title)
+        else
+          assert page.has_no_content?(title)
+        end
+    end 
+  else
+    movies.each do |title|
+      # title = title.gsub("\"", "")
+      if page.respond_to? :should
+        page.should have_content(title)
+      else
+        assert page.has_content?(title)
+      end
+    end
+  end
+end
