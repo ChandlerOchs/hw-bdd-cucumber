@@ -19,7 +19,10 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
-  fail "Unimplemented"
+  body = page.body
+  e1_loc = body.index(e1)
+  e2_loc = body.index(e2)
+  expect(e1_loc).to be < e2_loc
 end
 
 # Make it easier to express checking or unchecking several boxes at once
